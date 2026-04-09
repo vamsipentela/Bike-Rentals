@@ -3,7 +3,7 @@ import { CreditCard, ShieldCheck, Zap, Info, Lock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import AuthModal from './AuthModal';
-import API_URL from '../config';
+
 
 const BookingCalculator = ({ vehicle }) => {
   const { user } = useAuth();
@@ -25,7 +25,7 @@ const BookingCalculator = ({ vehicle }) => {
 
     const checkAvailability = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/bookings?t=${Date.now()}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings?t=${Date.now()}`);
         if (!response.ok) return;
         const bookingsData = await response.json();
 
@@ -83,7 +83,7 @@ const BookingCalculator = ({ vehicle }) => {
 
     try {
       // 🚨 AGGRESSIVE DOUBLE-BOOKING PREVENTION
-      const availabilityRes = await fetch(`${API_URL}/api/bookings?t=${Date.now()}`);
+      const availabilityRes = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings?t=${Date.now()}`);
       if (availabilityRes.ok) {
         const currentBookings = await availabilityRes.json();
         const stillOccupied = currentBookings.some(b => {
@@ -102,7 +102,7 @@ const BookingCalculator = ({ vehicle }) => {
         }
       }
 
-      const response = await fetch(API_URL + '/api/bookings', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Zap, ShieldCheck, Wrench, Calendar, Clock, MapPin, Star } from 'lucide-react';
 import BikeCard from '../components/BikeCard';
-import API_URL from '../config';
+
 
 const FEATURES = [
   { icon: <Zap size={17} />, title: 'Instant-Go', desc: 'Ready in under 60 sec.' },
@@ -26,8 +26,8 @@ const Home = () => {
     (async () => {
       try {
         const [bikeRes, bookingRes] = await Promise.all([
-          fetch(API_URL + '/api/bikes'),
-          fetch(API_URL + '/api/bookings')
+          fetch(`${import.meta.env.VITE_API_URL}/api/bikes`),
+          fetch(`${import.meta.env.VITE_API_URL}/api/bookings`)
         ]);
 
         if (bikeRes.ok) {

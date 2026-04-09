@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { User, LogOut, Package, History, Loader2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import API_URL from '../config';
+
 
 const Dashboard = () => {
   const { user, logout }  = useAuth();
@@ -20,7 +20,7 @@ const Dashboard = () => {
   const fetchBookings = async () => {
     setLoading(true);
     try {
-      const res  = await fetch(API_URL + '/api/bookings/mybookings', {
+      const res  = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings/mybookings`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const data = await res.json();

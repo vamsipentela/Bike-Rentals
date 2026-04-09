@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Search as SearchIcon, SlidersHorizontal, X, PackageOpen } from 'lucide-react';
 import VehicleCard from '../components/BikeCard';
 import FilterSidebar from '../components/FilterSidebar';
-import API_URL from '../config';
+
 
 const BikeListing = () => {
   const [filters, setFilters] = useState({ type: 'All', brand: 'All' });
@@ -17,8 +17,8 @@ const BikeListing = () => {
     (async () => {
       try {
         const [bikeRes, bookingRes] = await Promise.all([
-          fetch(API_URL + '/api/bikes'),
-          fetch(API_URL + '/api/bookings')
+          fetch(`${import.meta.env.VITE_API_URL}/api/bikes`),
+          fetch(`${import.meta.env.VITE_API_URL}/api/bookings`)
         ]);
 
         if (bikeRes.ok) setVehicles(await bikeRes.json());

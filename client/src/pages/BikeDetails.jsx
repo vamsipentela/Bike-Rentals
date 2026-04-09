@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Star, MapPin, ShieldCheck, CheckCircle2, ArrowLeft, Fuel, Gauge, Zap } from 'lucide-react';
 import BookingCalculator from '../components/BookingForm';
-import API_URL from '../config';
+
 
 const VehicleDetails = () => {
   const { id } = useParams();
@@ -13,7 +13,7 @@ const VehicleDetails = () => {
   useEffect(() => {
     const fetchBike = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/bikes/${id}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/bikes/${id}`);
         if (!response.ok) throw new Error('Database offline');
         const data = await response.json();
         setVehicle(data);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import API_URL from '../config';
+
 import {
   Package, Plus, Edit2, Trash2, X, Fuel, Gauge,
   IndianRupee, Tag, Type, Image as ImageIcon,
@@ -45,7 +45,7 @@ const Admin = () => {
 
   const fetchBikes = async () => {
     try {
-      const response = await fetch(API_URL + '/api/bikes');
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/bikes`);
       if (!response.ok) throw new Error();
       const data = await response.json();
       setBikes(data);
@@ -59,7 +59,7 @@ const Admin = () => {
 
   const fetchBookings = async () => {
     try {
-      const response = await fetch(API_URL + '/api/bookings', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       const data = await response.json();
@@ -74,7 +74,7 @@ const Admin = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch(API_URL + '/api/auth/users', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/users`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       const data = await response.json();
@@ -111,8 +111,8 @@ const Admin = () => {
     e.preventDefault();
     try {
       const url = editingBike
-        ? `${API_URL}/api/bikes/${editingBike._id}`
-        : API_URL + '/api/bikes';
+        ? `${import.meta.env.VITE_API_URL}/api/bikes/${editingBike._id}`
+        : `${import.meta.env.VITE_API_URL}/api/bikes`;
       const method = editingBike ? 'PUT' : 'POST';
       const response = await fetch(url, {
         method,
@@ -136,7 +136,7 @@ const Admin = () => {
   const deleteBike = async (id) => {
     if (!window.confirm('Delete this vehicle?')) return;
     try {
-      const response = await fetch(`${API_URL}/api/bikes/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/bikes/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${user.token}` }
       });
@@ -149,7 +149,7 @@ const Admin = () => {
 
   const endRide = async (id) => {
     try {
-      const response = await fetch(`${API_URL}/api/bookings/${id}/complete`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings/${id}/complete`, {
         method: 'PUT',
         headers: { Authorization: `Bearer ${user.token}` }
       });
@@ -162,7 +162,7 @@ const Admin = () => {
   const cancelBooking = async (id) => {
     if (!window.confirm('Are you sure you want to delete this ride?')) return;
     try {
-      const response = await fetch(`${API_URL}/api/bookings/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/bookings/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${user.token}` }
       });
